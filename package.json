@@ -1,0 +1,22 @@
+{
+  "name": "banxa-payment-links",
+  "version": "1.0.0",
+  "description": "Banxa Hosted Checkout payment links (USDT TRC20, card) \u2014 compliant customer-owned-wallet model",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node --env-file=.env src/server.js",
+    "test": "node --test --test-reporter=spec test/e2e.test.js",
+    "hash-password": "node scripts/hash-password.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^13.1.1",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.4",
+    "helmet": "^8.3.0"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=20.6"
+  }
+}

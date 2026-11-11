@@ -1,0 +1,77 @@
+$ npm ci
+
+added 70 packages, and audited 71 packages in 1s
+
+32 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+[npm ci exit code: 0]
+
+$ npm test
+
+> banxa-payment-links@1.0.0 test
+> node --test --test-reporter=spec test/e2e.test.js
+
+✔ TRON address validation uses checksum (64.604536ms)
+✔ admin requires login; wrong password rejected (129.407243ms)
+✔ admin POST without CSRF token is refused (3.825124ms)
+✔ blocked (business) wallet cannot be used as destination (11.736493ms)
+✔ validation: amount range, wallet checksum, attestation (21.827322ms)
+✔ full flow: link -> Banxa order with locked params -> webhooks -> Completed; no reuse (729.248075ms)
+✔ mismatch reported later (lookup) blocks the link and removes the checkout URL (95.719071ms)
+✔ expired order allows retry up to the limit; cancelled ends the link (192.785894ms)
+✔ revoked and unknown links are refused; polling sync works without webhooks (28.699737ms)
+✔ verify-banxa reports USDT/TRON and card availability (5.172189ms)
+✔ no secrets leak into any rendered page (3.541969ms)
+✔ production mode refuses to start without approval / with mock override (1.729529ms)
+✔ create-response mismatch (fiatAmount) stops checkout before redirect (13.01077ms)
+✔ create-response mismatch (fiat) stops checkout before redirect (16.912931ms)
+✔ create-response mismatch (crypto) stops checkout before redirect (15.086589ms)
+✔ create-response mismatch (blockchain) stops checkout before redirect (11.972921ms)
+✔ create-response mismatch (externalOrderId) stops checkout before redirect (12.111792ms)
+✔ create-response mismatch (externalCustomerId) stops checkout before redirect (12.194481ms)
+✔ create-response mismatch (checkoutUrl host) stops checkout before redirect (9.78824ms)
+✔ order-lookup mismatch (walletAddress) blocks before the customer is redirected (14.509213ms)
+✔ order-lookup mismatch (crypto.address) blocks before the customer is redirected (10.43655ms)
+✔ order-lookup mismatch (paymentMethodId) blocks before the customer is redirected (10.742976ms)
+✔ order-lookup mismatch (crypto.blockchain) blocks before the customer is redirected (9.759952ms)
+✔ order-lookup mismatch (crypto.id) blocks before the customer is redirected (14.061813ms)
+✔ order-lookup mismatch (fiat) blocks before the customer is redirected (9.87488ms)
+✔ order-lookup mismatch (orderType) blocks before the customer is redirected (10.294893ms)
+✔ order-lookup mismatch (walletAddressTag) blocks before the customer is redirected (10.158474ms)
+✔ mismatch discovered when the customer reopens the link: no resume, URL erased (17.254754ms)
+✔ mismatch in a webhook is blocked even when the lookup is unavailable (98.351969ms)
+✔ verification lookup failure: fail closed (no redirect), then resume once lookup works (21.762307ms)
+✔ timeout after Banxa created the order: reconciled by externalOrderId, never duplicated blindly (425.503974ms)
+✔ timeout where order lookup returns a valid checkoutUrl: existing order is reused (zero duplicates) (415.699205ms)
+✔ ambiguous 502 / malformed 2xx are treated like timeouts (reconcile, no blind retry) (24.273627ms)
+✔ reconciliation lookup unavailable: link stays locked, no new Banxa order until resolved (417.692216ms)
+✔ ambiguous failure where Banxa did NOT create: "not found" only trusted after grace period (1124.149364ms)
+✔ list lag: order not yet visible is not mistaken for "not created" (716.123444ms)
+✔ definitive 4xx from Banxa: nothing created, no reconciliation, customer can retry (21.22847ms)
+✔ webhook for an order created during a timeout is adopted via external_id (496.576629ms)
+✔ webhook signature: missing, wrong key, wrong path, modified body, wrong secret are all rejected (82.737183ms)
+✔ webhook processing failure is recovered later through order lookup (187.058833ms)
+✔ duplicate processed webhook is ignored (no extra lookup); out-of-order webhook cannot regress (279.057354ms)
+✔ webhook for an unknown order is stored safely and does not crash (87.52758ms)
+✔ Banxa endpoints match the Hosted Checkout v2 reference (22.959917ms)
+✔ customer page shows the full destination wallet clearly before confirmation (6.697296ms)
+✔ checkout URL: repeated visits inside the window reuse the same URL; after it, never redirected and never re-created (2155.21037ms)
+✔ delayed verification: lookup succeeds only after the window -> customer is NOT redirected (2121.067893ms)
+✔ delayed verification inside the window still redirects (no false stops) (318.729507ms)
+✔ stalled link: Banxa later reports expired -> a NEW order is allowed on the same link (2225.51302ms)
+✔ stalled link while customer is paying in the loaded tab (waitingPayment): no new order, no redirect (2125.890869ms)
+✔ stalled link: payment completes in the loaded tab -> link becomes paid (2205.313407ms)
+✔ reconciliation never adopts a checkout URL that may already be expired (2522.71452ms)
+✔ background sweep expires stale checkout URLs and the admin sees the stalled state (2203.81503ms)
+✔ usableCheckoutUrl refuses missing issuance time, future timestamps and non-pending orders (0.317846ms)
+ℹ tests 53
+ℹ suites 0
+ℹ pass 53
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22186.309784
+[npm test exit code: 0]
